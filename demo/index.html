@@ -14,16 +14,25 @@
     <div class="artMessage-item">
         <div class="artMessage-content">
             <i class="type loading"></i>
-            <span class="custom-msg">顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</span>
+            <span class="custom-msg">顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</span>
         </div>
     </div>
 </div>-->
 
-<button onclick="artMessage.success('1',2);">按钮</button>
-<button onclick="artMessage.error('2',2);">按钮</button>
-<button onclick="artMessage.warn('3',2);">按钮</button>
-<button onclick="artMessage.info('4',2);">按钮</button>
-<button onclick="artMessage.loading('4',2);">按钮</button>
+<button onclick="artMessage.success('success');">success</button>
+<button onclick="artMessage.error('error');">error</button>
+<button onclick="artMessage.warn('warn');">warn</button>
+<button onclick="artMessage.info('info');">info</button>
+<button id="starLoading">开始加载</button>
+
+<script>
+    document.getElementById('starLoading').onclick = function () {
+        var msgObj = artMessage.loading('开始加载', 0);
+        setTimeout(function(){
+            msgObj.out();
+        },5000);
+    };
+</script>
 
 
 <script>
