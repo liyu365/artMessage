@@ -11,20 +11,29 @@
 <body>
 
 <!--<div class="artMessage-wrapper">
-    <div class="artMessage-item"><div class="content">asdasdasdasd</div></div>
+    <div class="artMessage-item">
+        <div class="artMessage-content">
+            <i class="type loading"></i>
+            <span class="custom-msg">顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。</span>
+        </div>
+    </div>
 </div>-->
 
 <button onclick="artMessage.success('1',2);">按钮</button>
-<button onclick="artMessage.success('2',2);">按钮</button>
-<button onclick="artMessage.success('3',2);">按钮</button>
+<button onclick="artMessage.error('2',2);">按钮</button>
+<button onclick="artMessage.warn('3',2);">按钮</button>
+<button onclick="artMessage.info('4',2);">按钮</button>
+<button onclick="artMessage.loading('4',2);">按钮</button>
 
 
 <script>
-    //解决ie6下不支持背景缓存
-    if (!+'\v1' && !('maxHeight' in document.body.style)) {
-        try {
-            document.execCommand("BackgroundImageCache", false, true);
-        } catch (e) {
+    //防止浏览器不支持console报错
+    if (!window.console) {
+        window.console = {};
+        var funs = ["profiles", "memory", "_commandLineAPI", "debug", "error", "info", "log", "warn", "dir", "dirxml", "trace", "assert", "count", "markTimeline", "profile", "profileEnd", "time", "timeEnd", "timeStamp", "group", "groupCollapsed", "groupEnd"];
+        for (var i = 0; i < funs.length; i++) {
+            console[funs[i]] = function () {
+            };
         }
     }
 </script>

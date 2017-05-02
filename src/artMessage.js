@@ -9,18 +9,44 @@
     };
 
     Message.message_wrapper = null;
+    Message.zIndex = 2060;
 
     Message.prototype.enter = function () {
         var _this = this;
         if (!Message.message_wrapper) {
             Message.message_wrapper = document.createElement('div');
             addClass(Message.message_wrapper, 'artMessage-wrapper');
+            Message.message_wrapper.style.zIndex = Message.zIndex;
             document.body.appendChild(Message.message_wrapper);
         }
 
+        var type = document.createElement('i');
+        switch (_this.type){
+            case 'success':
+                addClass(type,'success');
+                break;
+            case 'error':
+                addClass(type,'error');
+                break;
+            case 'warn':
+                addClass(type,'warn');
+                break;
+            case 'info':
+                addClass(type,'info');
+                break;
+            case 'loading':
+                addClass(type,'loading');
+                break;
+        }
+
+        var custom_msg = document.createElement('span');
+        addClass(custom_msg, 'custom-msg');
+        custom_msg.innerHTML = _this.msg;
+
         var content = document.createElement('div');
         addClass(content, 'artMessage-content');
-        content.innerHTML = _this.msg;
+        content.appendChild(type);
+        content.appendChild(custom_msg);
 
         _this.messageItem = document.createElement('div');
         addClass(_this.messageItem, 'artMessage-item');
@@ -53,6 +79,18 @@
 
     artMessage.success = function (msg, duration) {
         return new Message(msg, duration, 'success');
+    };
+    artMessage.error = function (msg, duration) {
+        return new Message(msg, duration, 'error');
+    };
+    artMessage.warn = function (msg, duration) {
+        return new Message(msg, duration, 'warn');
+    };
+    artMessage.info = function (msg, duration) {
+        return new Message(msg, duration, 'info');
+    };
+    artMessage.loading = function (msg, duration) {
+        return new Message(msg, duration, 'loading');
     };
 
     /**
