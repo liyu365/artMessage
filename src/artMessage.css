@@ -13,7 +13,7 @@
 .artMessage-item .artMessage-content i.loading{background-image:url(./artMessage_loading.gif) !important;background-repeat:no-repeat;}
 .artMessage-item .artMessage-content span{}
 
-.artMessage-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2059;background-color:#000000;opacity:0.5;filter:alpha(opacity=50);
+.artMessage-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;z-index:2059;background-color:#000000;opacity:0.05;filter:alpha(opacity=5);
     _position:absolute;_top:expression(documentElement.scrollTop);_width:expression(documentElement.clientWidth);_height:expression(documentElement.clientHeight);
 }
 
