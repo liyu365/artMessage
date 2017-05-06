@@ -1,10 +1,14 @@
 !(function () {
 
-    var Message = function (msg, duration, type) {
+    var Message = function (option) {
         var _this = this;
-        _this.msg = typeof msg != 'undefined' ? msg : '';
-        _this.duration = typeof duration != 'undefined' ? duration : 1.5;
-        _this.type = type;
+        var def_options = {
+            message: '提示',
+            duration: 1.5,
+            mask: false,
+            type: 'info'
+        };
+        _this.opts = extend(def_options, option);
         _this.enter();
     };
 
@@ -20,8 +24,15 @@
             document.body.appendChild(Message.message_wrapper);
         }
 
+        //添加锁定层
+        if (_this.opts.mask && _this.check_backdrop() === 0) {
+            var backdrop = document.createElement('div');
+            addClass(backdrop, 'artMessage-backdrop');
+            document.body.appendChild(backdrop);
+        }
+
         var type = document.createElement('i');
-        switch (_this.type) {
+        switch (_this.opts.type) {
             case 'success':
                 addClass(type, 'success');
                 break;
@@ -43,7 +54,7 @@
 
         var custom_msg = document.createElement('span');
         addClass(custom_msg, 'custom-msg');
-        custom_msg.innerHTML = _this.msg;
+        custom_msg.innerHTML = _this.opts.message;
 
         var content = document.createElement('div');
         addClass(content, 'artMessage-content');
@@ -62,10 +73,10 @@
             removeClass(_this.messageItem, 'move-up-enter-active');
         }, 200);
 
-        if (_this.duration !== 0) {
+        if (_this.opts.duration !== 0) {
             setTimeout(function () {
                 _this.out();
-            }, _this.duration * 1000);
+            }, _this.opts.duration * 1000);
         }
     };
 
@@ -75,31 +86,62 @@
         addClass(_this.messageItem, 'move-up-leave-active');
         setTimeout(function () {
             _this.messageItem.parentNode.removeChild(_this.messageItem);
+            //删除锁定层
+            if (_this.check_backdrop() > 0 && _this.opts.mask) {
+                var backdrop_elements = getElementsByAttribute('class', 'artMessage-backdrop');
+                for (var i = 0, len = backdrop_elements.length; i < len; i++) {
+                    backdrop_elements[i].parentNode.removeChild(backdrop_elements[i]);
+                }
+            }
         }, 200);
     };
 
+    Message.prototype.check_backdrop = function () {
+        var backdrop_elements = getElementsByAttribute('class', 'artMessage-backdrop');
+        return backdrop_elements.length;
+    };
 
-    var artMessage = {};
+    var artMessage = function (option) {
+        return new Message(option);
+    };
 
-    artMessage.success = function (msg, duration) {
-        return new Message(msg, duration, 'success');
-    };
-    artMessage.error = function (msg, duration) {
-        return new Message(msg, duration, 'error');
-    };
-    artMessage.warn = function (msg, duration) {
-        return new Message(msg, duration, 'warn');
-    };
-    artMessage.info = function (msg, duration) {
-        return new Message(msg, duration, 'info');
-    };
-    artMessage.loading = function (msg, duration) {
-        return new Message(msg, duration, 'loading');
-    };
 
     /**
      * utils----------------------------------------------------------------------------------
      */
+
+    //根据属性名获取元素集合
+    function getElementsByAttribute(attribute, attributeValue, queryElement) {
+        var elementArray = [];
+        var matchedArray = [];
+        var qElement = document;
+        if (typeof queryElement !== 'undefined') {
+            qElement = queryElement;
+        }
+        if (qElement.all) {
+            elementArray = qElement.all;
+        } else {
+            elementArray = qElement.getElementsByTagName("*");
+        }
+        for (var i = 0, len = elementArray.length; i < len; i++) {
+            if (attribute == "class") {
+                var pattern = new RegExp("(\\s|^)" + attributeValue + "(\\s|$)");
+                if (pattern.test(elementArray[i].className)) {
+                    matchedArray[matchedArray.length] = elementArray[i];
+                }
+            } else if (attribute == "for") {
+                if (elementArray[i].getAttribute("htmlFor") || elementArray[i].getAttribute("for")) {
+                    if (elementArray[i].htmlFor == attributeValue) {
+                        matchedArray[matchedArray.length] = elementArray[i];
+                    }
+                }
+            } else if (elementArray[i].getAttribute(attribute) == attributeValue) {
+                matchedArray[matchedArray.length] = elementArray[i];
+            }
+        }
+
+        return matchedArray;
+    }
 
     //操作class
     function hasClass(elements, cName) {
@@ -118,6 +160,13 @@
         }
     }
 
+    //对象属性继承
+    function extend(obj1, obj2) {
+        for (var k in obj2) {
+            obj1[k] = obj2[k];
+        }
+        return obj1;
+    }
 
     if (typeof define === 'function') {
         define(function () {

@@ -10,18 +10,23 @@
 </head>
 <body>
 
-<button onclick="artMessage.success('success');">success</button>
-<button onclick="artMessage.error('error');">error</button>
-<button onclick="artMessage.warn('warn');">warn</button>
-<button onclick="artMessage.info('info');">info</button>
+<button onclick="artMessage({message:'success',type:'success',duration:'1.5',mask:true});">success</button>
+<button onclick="artMessage({message:'error',type:'error'});">error</button>
+<button onclick="artMessage({message:'warn',type:'warn'});">warn</button>
+<button onclick="artMessage({message:'info',type:'info'});">info</button>
 <button id="starLoading">开始加载</button>
 
 <script>
     document.getElementById('starLoading').onclick = function () {
-        var msgObj = artMessage.loading('开始加载', 0);
+        var msgObj = artMessage({
+            message: '加载中...',
+            type: 'loading',
+            duration: 0,
+            mask: true
+        });
         setTimeout(function () {
             msgObj.out();
-        }, 2000);
+        }, 1000)
     };
 </script>
 
