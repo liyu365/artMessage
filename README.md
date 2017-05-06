@@ -11,9 +11,13 @@
 `artMessage(option)`
 
 option选项：
+
 `message` 消息文字
+
 `duration` 消息停留时间，默认为1.5（以秒为单位），设置为0表示不自动消失，可调用artMessage()方法返回的实例的out()方法手动控制消失
+
 `mask` 消息显示期间是否锁定屏幕 true|false
+
 `type` 消息的图标种类：'success'|'error'|'warn'|'info'|'loading'
 
 ## License
