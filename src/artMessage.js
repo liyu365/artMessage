@@ -6,7 +6,13 @@
             message: '提示',
             duration: 1.5,
             mask: false,
-            type: 'info'
+            type: 'info',
+            open: function () {
+
+            },
+            close: function () {
+
+            }
         };
         _this.opts = extend(def_options, option);
         _this.enter();
@@ -30,6 +36,8 @@
             addClass(backdrop, 'artMessage-backdrop');
             document.body.appendChild(backdrop);
         }
+
+        _this.opts.open.call(_this);
 
         var type = document.createElement('i');
         switch (_this.opts.type) {
@@ -86,6 +94,7 @@
         addClass(_this.messageItem, 'move-up-leave-active');
         setTimeout(function () {
             _this.messageItem.parentNode.removeChild(_this.messageItem);
+            _this.opts.close.call(_this);
             //删除锁定层
             if (_this.check_backdrop() > 0 && _this.opts.mask) {
                 var backdrop_elements = getElementsByAttribute('class', 'artMessage-backdrop');

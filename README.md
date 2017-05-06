@@ -20,6 +20,10 @@ option选项：
 
 `type` 消息的图标种类：'success'|'error'|'warn'|'info'|'loading'
 
+`open` 消失显示后的回调函数
+
+`close` 消息消失后的回调函数
+
 ## License
 
 **Under MIT License. Copyright by 李昱(liyu365)**

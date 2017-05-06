@@ -22,7 +22,13 @@
             message: '加载中...',
             type: 'loading',
             duration: 0,
-            mask: true
+            mask: true,
+            open: function(){
+                console.log('open');
+            },
+            close: function(){
+                console.log('close');
+            }
         });
         setTimeout(function () {
             msgObj.out();
