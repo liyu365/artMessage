@@ -34,6 +34,7 @@
         if (_this.opts.mask && _this.check_backdrop() === 0) {
             var backdrop = document.createElement('div');
             addClass(backdrop, 'artMessage-backdrop');
+            backdrop.style.zIndex = Message.zIndex - 1;
             document.body.appendChild(backdrop);
         }
 
