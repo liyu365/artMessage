@@ -1,8 +1,8 @@
-.artMessage-wrapper{position:fixed;top:16px;left:0;width:100%;
+.artMessage-wrapper{position:fixed;top:16px;left:0;width:100%;pointer-events:none;
     _position:absolute;_top:expression(documentElement.scrollTop);
 }
 .artMessage-item{padding:8px;text-align:center;}
-.artMessage-item .artMessage-content{display:inline-block;padding:8px 16px;border-radius:4px;background:#fff;border:1px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.2);
+.artMessage-item .artMessage-content{display:inline-block;padding:8px 16px;border-radius:4px;background:#fff;border:1px solid #eee;box-shadow:0 2px 8px rgba(0,0,0,.2);pointer-events:all;
     *width:300px;
 }
 .artMessage-item .artMessage-content i{position:relative;top:1px;display:inline-block;margin-right:8px;width:16px;height:16px;font-size:0;background-image:url(./artMessage.png);background-repeat:no-repeat;}

@@ -6,7 +6,8 @@
             message: '提示',
             duration: 1.5,
             mask: false,
-            type: 'info',
+            alone: false,
+            type: '',
             open: function () {
 
             },
@@ -15,11 +16,15 @@
             }
         };
         _this.opts = extend(def_options, option);
+        if (_this.opts.alone == true) {
+            Message.alone = true;
+        }
         _this.enter();
     };
 
     Message.message_wrapper = null;
     Message.zIndex = 2060;
+    Message.alone = false;
 
     Message.prototype.enter = function () {
         var _this = this;
@@ -103,6 +108,7 @@
                     backdrop_elements[i].parentNode.removeChild(backdrop_elements[i]);
                 }
             }
+            Message.alone = false;
         }, 200);
     };
 
@@ -112,6 +118,9 @@
     };
 
     var artMessage = function (option) {
+        if (Message.alone === true) {
+            return false;
+        }
         return new Message(option);
     };
 

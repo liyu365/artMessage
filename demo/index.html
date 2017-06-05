@@ -10,12 +10,27 @@
 </head>
 <body>
 
-<button onclick="artMessage({message:'success',type:'success',duration:'1.5',mask:true});">success</button>
+<span>artMessage</span> ©<a href="https://github.com/liyu365">liyu</a>
+
+<h1>支持五种消息图标</h1>
+<button onclick="artMessage({message:'success',type:'success'});">success</button>
 <button onclick="artMessage({message:'error',type:'error'});">error</button>
 <button onclick="artMessage({message:'warn',type:'warn'});">warn</button>
 <button onclick="artMessage({message:'info',type:'info'});">info</button>
-<button id="starLoading">开始加载</button>
+<button onclick="artMessage({message:'loading',type:'loading'});">loading</button>
+<button onclick="artMessage({message:'无图标'});">无图标</button>
 
+<h1>设置消息的停留时间为10s</h1>
+<button onclick="artMessage({message:'此条消息会停留5s后消失',type:'success',duration:'5'});">此条消息会停留5s后消失</button>
+
+<h1>为消息设置遮罩层</h1>
+<button onclick="artMessage({message:'为消息设置遮罩层',type:'success',mask:true});">为消息设置遮罩层</button>
+
+<h1>设置消息的alone属性为true，会让此条消息消失之前，其它消息都无法显示</h1>
+<button onclick="artMessage({message:'在我消失之前无法再显示其它消息',type:'success',alone:true});">在我消失之前无法再显示其它消息</button>
+
+<h1>在回调中对消息进行关闭</h1>
+<button id="starLoading">开始加载</button>
 <script>
     document.getElementById('starLoading').onclick = function () {
         var msgObj = artMessage({
@@ -23,15 +38,18 @@
             type: 'loading',
             duration: 0,
             mask: true,
-            open: function(){
+            open: function () {
                 console.log('open');
             },
-            close: function(){
+            close: function () {
                 console.log('close');
             }
         });
         setTimeout(function () {
-            msgObj.out();
+            if(msgObj){
+                alert('我要被关闭了！');
+                msgObj.out();
+            }
         }, 1000)
     };
 </script>
