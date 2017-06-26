@@ -20,6 +20,9 @@
 <button onclick="artMessage({message:'loading',type:'loading'});">loading</button>
 <button onclick="artMessage({message:'无图标'});">无图标</button>
 
+<h1>在页面中央显示</h1>
+<button onclick="artMessage({message:'此消息将在页面中央显示',type:'success',center:true});">此消息将在页面中央显示</button>
+
 <h1>设置消息的停留时间为10s</h1>
 <button onclick="artMessage({message:'此条消息会停留5s后消失',type:'success',duration:'5'});">此条消息会停留5s后消失</button>
 
@@ -38,6 +41,7 @@
             type: 'loading',
             duration: 0,
             mask: true,
+            center:true,
             open: function () {
                 console.log('open');
             },

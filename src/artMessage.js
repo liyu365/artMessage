@@ -8,6 +8,7 @@
             mask: false,
             alone: false,
             type: '',
+            center: false,
             open: function () {
 
             },
@@ -77,6 +78,10 @@
 
         _this.messageItem = document.createElement('div');
         addClass(_this.messageItem, 'artMessage-item');
+        if (_this.opts.center == true) {
+            _this.messageItem.style.position = 'relative';
+            _this.messageItem.style.top = Math.floor(getViewportSize().h * 0.38) + 'px';
+        }
         _this.messageItem.appendChild(content);
 
         Message.message_wrapper.appendChild(_this.messageItem);
@@ -128,6 +133,24 @@
     /**
      * utils----------------------------------------------------------------------------------
      */
+
+    //返回视口尺寸
+    function getViewportSize(w) {
+        w = w || window;
+        //除了IE8和更早的版本以外
+        if (w.innerWidth != null) {
+            return {w: w.innerWidth, h: w.innerHeight};
+        } else {
+            var d = w.document;
+            //对标准模式下的IE（或其他浏览器）
+            if (document.compatMode == "CSS1Compat") {
+                return {w: d.documentElement.clientWidth, h: d.documentElement.clientHeight};
+            } else {
+                //对怪异模式下的浏览器
+                return {w: d.body.clientWidth, h: d.body.clientHeight};
+            }
+        }
+    }
 
     //根据属性名获取元素集合
     function getElementsByAttribute(attribute, attributeValue, queryElement) {
